@@ -1,18 +1,38 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container-fluid d-flex justify-content-center align-items-center flex-column">
+    <div class="row-mt-5">
+      <div class="col-md-12">
+        <h1 >Bienvenido a Contactify</h1>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: 'Home',
-  components: {
-    HelloWorld
+};
+</script>
+
+<style scoped>
+.container-fluid {
+  background-image: url('../assets/img/05.jpg');
+  min-height: 92.5vh;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 450px) {
+  .container-fluid {
+    min-height: 93.92vh;
   }
 }
-</script>
+
+@media  screen and (max-width: 850px) {
+    .container-fluid {
+    min-height: 97vh;
+  }
+}
+
+</style>
