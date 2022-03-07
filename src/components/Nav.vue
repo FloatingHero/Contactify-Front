@@ -1,5 +1,7 @@
 <template>
-  <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
+  <nav
+    class="navbar navbar-dark bg-dark navbar-expand-lg"
+  >
     <div class="container-fluid">
       <router-link to="/" class="navbar-brand">Contactify</router-link>
       <button

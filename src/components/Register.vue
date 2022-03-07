@@ -2,7 +2,7 @@
   <form @submit.prevent="register" class="p-4" enctype="multipart/form-data">
     <div class="mb-3 mt-3 d-flex justify-content-center">
       <div class="image_preview">
-        <img :src="image_preview" :alt="image_preview" />
+        <img :src="image_preview" :alt="image_preview" id="image_preview" />
       </div>
     </div>
     <div class="mb-3">
@@ -29,6 +29,7 @@
       />
       <label for="name">Nombre</label>
     </div>
+
     <div class="form-floating mb-3">
       <input
         type="email"
@@ -55,11 +56,19 @@
         class="form-control"
         id="confirm_password"
         placeholder="********"
+        v-model="user.confirm_password"
       />
       <label for="confirm_password">Confirme su contraseña</label>
     </div>
     <div class="d-flex justify-content-center mb-3">
       <button class="btn btn-outline-dark w-50">Registrarse</button>
+    </div>
+    <div class="alert alert-danger" v-if="Object.keys(errors).length !== 0">
+      <ul>
+        <li v-for="(error, index) in errors" :key="index">
+          {{ error.msg }}
+        </li>
+      </ul>
     </div>
     <div class="d-flex justify-content-center">
       <span
@@ -72,15 +81,25 @@
 
 <script>
 import userModule from './modules/userModule';
+import { onMounted } from 'vue';
 export default {
   setup() {
-    const { user, register, setProfileImage, image_preview } = userModule();
+    const { user, register, setProfileImage, image_preview, errors } =
+      userModule();
+
+    onMounted(() => {
+      if (image_preview.value === undefined) {
+        document.getElementById('image_preview').style.height = '0';
+        document.getElementById('image_preview').style.width = '0';
+      }
+    });
 
     return {
       user,
       register,
       setProfileImage,
       image_preview,
+      errors,
     };
   },
 };
@@ -106,8 +125,8 @@ export default {
 }
 
 .image_preview img {
-  max-width: 100%;
-  max-height: 100%;
+  height: 150px;
+  width: 150px;
   border-radius: 50%;
 }
 </style>
