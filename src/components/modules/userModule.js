@@ -13,8 +13,8 @@ export default function userModule() {
   const router = useRouter();
 
   function setProfileImage(e) {
-    user.value.profile_image_name = `${e.target.files[0].name}`;
-    user.value.profile_image_file = e.target.files[0];
+    user.value.image_name = `${e.target.files[0].name}`;
+    user.value.image_file = e.target.files[0];
     image_preview.value = URL.createObjectURL(e.target.files[0]);
     document.getElementById('image_preview').style.height = '150px';
     document.getElementById('image_preview').style.width = '150px';
@@ -22,7 +22,7 @@ export default function userModule() {
 
   async function uploadImage() {
     const fd = new FormData();
-    fd.append('profile_image_file', user.value.profile_image_file);
+    fd.append('image', user.value.image_file);
     await axios.post(`/api/upload`, fd, {
       headers: {
         'Content-Type': 'multipart/form-data',
@@ -32,8 +32,8 @@ export default function userModule() {
 
   function register() {
     if (
-      user.value.profile_image_name !== undefined &&
-      user.value.profile_image_name.length !== 0
+      user.value.image_name !== undefined &&
+      user.value.image_name.length !== 0
     ) {
       uploadImage();
     }
@@ -45,7 +45,6 @@ export default function userModule() {
       })
       .catch((err) => {
         errors.value = err.response.data.errors;
-        console.table(errors.value);
       });
   }
 
@@ -62,9 +61,14 @@ export default function userModule() {
           });
 
           if (user_token.data !== undefined || user_token.data !== null) {
-            localStorage.setItem('user', JSON.stringify(user_token.data.user));
+            localStorage.setItem(
+              'userData',
+              JSON.stringify(user_token.data.user)
+            );
             userData.value = user_token.data.user;
           }
+
+          router.push('/perfil');
         }
       })
       .catch((err) => {
@@ -73,8 +77,9 @@ export default function userModule() {
   }
 
   function logout() {
-    localStorage.removeItem('user');
+    localStorage.removeItem('userData');
     localStorage.removeItem('auth_token');
+    router.push('/');
   }
 
   return {
