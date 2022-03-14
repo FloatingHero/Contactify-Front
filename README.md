@@ -2,8 +2,11 @@
 ### App de contactos sencilla donde se podrá realizar un registro de contactos, así como su manejo y eliminación.
 
 ## Project setup
-## IMPORTANTE: DEBE DESCARGARSE E INSTALARSE PREVIAMENTE EL SIGUIENTE PROYECTO, YA QUE ES LA API CON LA QUE SE CONECTA LA APLICACIÓN
-# https://github.com/FloatingHero/Contactify
+### IMPORTANTE: DEBE DESCARGARSE E INSTALARSE PREVIAMENTE EL SIGUIENTE PROYECTO, YA QUE ES LA API CON LA QUE SE CONECTA LA APLICACIÓN
+
+```
+https://github.com/FloatingHero/Contactify
+```
 ```
 npm install
 ```
