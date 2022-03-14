@@ -3,7 +3,7 @@
     <div class="row d-flex justify-content-center">
       <div class="col-md-6">
         <form
-          @submit.prevent="storeContact"
+          @submit.prevent="handleSubmit"
           class="p-4"
           enctype="multipart/form-data"
         >
@@ -72,7 +72,7 @@
             <label for="tel">Teléfono</label>
           </div>
           <div class="d-flex justify-content-center mb-3">
-            <button class="btn btn-outline-dark w-50">Registrarse</button>
+            <button class="btn btn-outline-dark w-50">{{ message }}</button>
           </div>
           <div
             class="alert alert-danger"
@@ -80,15 +80,9 @@
           >
             <ul>
               <li v-for="(error, index) in errors" :key="index">
-                {{ error.msg }}
+                {{ error[0].msg }}
               </li>
             </ul>
-          </div>
-          <div class="d-flex justify-content-center">
-            <span
-              >¿Ya tienes cuenta? Inicia sesión
-              <router-link to="/login">aquí</router-link></span
-            >
           </div>
         </form>
       </div>
@@ -100,20 +94,38 @@
 import contactsModule from '@/components/modules/contactsModule';
 import userModule from '@/components/modules/userModule';
 import { onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 export default {
   setup() {
-    const { contact, image_preview, setProfileImage, errors, storeContact } =
-      contactsModule();
+    const {
+      contact,
+      image_preview,
+      setProfileImage,
+      errors,
+      getContact,
+      handleSubmit,
+    } = contactsModule();
     const { userData } = userModule();
+    const route = useRoute();
 
     onMounted(() => {
       if (image_preview.value === undefined) {
         document.getElementById('image_preview').style.height = '0';
         document.getElementById('image_preview').style.width = '0';
       }
-
       contact.value.user_id = userData.value.id;
+
+      if (route.params.contact_id !== undefined) {
+        getContact(route.params.contact_id);
+        document.getElementById('image_preview').style.height = '150px';
+        document.getElementById('image_preview').style.width = '150px';
+      }
     });
+
+    const message =
+      route.params.contact_id !== undefined
+        ? 'Editar contacto'
+        : 'Añadir contacto';
 
     return {
       setProfileImage,
@@ -121,7 +133,8 @@ export default {
       contact,
       setProfileImage,
       errors,
-      storeContact,
+      handleSubmit,
+      message,
     };
   },
 };

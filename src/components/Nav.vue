@@ -18,9 +18,6 @@
           <li class="nav-item">
             <router-link to="/" class="nav-link">Inicio</router-link>
           </li>
-          <li class="nav-item">
-            <router-link to="/" class="nav-link">Contactos</router-link>
-          </li>
         </ul>
         <ul
           class="navbar-nav ms-auto"
@@ -37,27 +34,23 @@
         </ul>
         <ul class="navbar-nav ms-auto" v-else>
           <li class="nav-item dropdown">
-            <img
-              :src="URL + userData.profile_image"
-              :alt="userData.profile_image"
-              v-if="userData.profile !== null || userData.profile !== undefined"
-              class="nav-link dropdown-toggle"
-              data-bs-toggle="dropdown"
-            />
             <a
               href="javascript:void(0)"
               class="nav-link dropdown-toggle"
               data-bs-toggle="dropdown"
-              v-else
               >{{ userData.name }}</a
             >
             <ul class="dropdown-menu dropdown-menu-dark">
-              <li class="dropdown-item">
-                <router-link to="/perfil" class="nav-link">Perfil</router-link>
+              <li class="dropdown-item text-center">
+                <router-link to="/perfil" class="nav-link w-100"
+                  >Perfil</router-link
+                >
               </li>
               <li class="dropdown-item">
-                <form @submit="logout" class="d-inline">
-                  <button class="nav-link button_link">Cerrar sesión</button>
+                <form @submit="logout" class="d-flex justify-content-center">
+                  <button class="nav-link button_link">
+                    <span>Cerrar sesión</span>
+                  </button>
                 </form>
               </li>
             </ul>

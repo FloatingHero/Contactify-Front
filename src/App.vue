@@ -1,6 +1,8 @@
 <template>
   <Nav />
-  <router-view />
+  <Transition name="fade">
+    <router-view />
+  </Transition>
 </template>
 
 <script>
@@ -16,5 +18,15 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
 body {
   font-family: 'Montserrat', sans-serif;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
